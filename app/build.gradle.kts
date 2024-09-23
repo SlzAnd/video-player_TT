@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -70,7 +71,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //Navigation
-    implementation(libs.androidx.navigation.fragment.compose)
+    implementation(libs.androidx.navigation.compose)
+
+    //Serialization
+    implementation(libs.kotlinx.serialization.json)
 
     // Koin
     implementation(libs.koin.android)
@@ -85,7 +89,12 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.converter.scalars)
 
     //ExoPlayer
     implementation(libs.exoplayer)
+
+    // Coil
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
 }
