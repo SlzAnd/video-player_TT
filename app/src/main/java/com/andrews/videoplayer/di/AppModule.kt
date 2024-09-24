@@ -1,5 +1,7 @@
 package com.andrews.videoplayer.di
 
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.room.Room
 import com.andrews.videoplayer.data.MainRepositoryImpl
 import com.andrews.videoplayer.data.local.VideoFilesDao
@@ -7,6 +9,7 @@ import com.andrews.videoplayer.data.local.VideoFilesDatabase
 import com.andrews.videoplayer.data.remote.VideoFilesApi
 import com.andrews.videoplayer.domain.MainRepository
 import com.andrews.videoplayer.ui.screens.main.MainScreenViewModel
+import com.andrews.videoplayer.ui.screens.video_player.VideoPlayerViewModel
 import com.andrews.videoplayer.util.AppConsts.VIDEO_API_BASE_URL
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -29,6 +32,10 @@ val appModule = module {
         get<VideoFilesDatabase>().dao()
     }
 
+    single<Player> {
+        ExoPlayer.Builder(androidContext()).build()
+    }
+
     single<VideoFilesApi> {
         Retrofit.Builder()
             .baseUrl(VIDEO_API_BASE_URL)
@@ -43,5 +50,9 @@ val appModule = module {
 
     viewModel {
         MainScreenViewModel(get())
+    }
+
+    viewModel {
+        VideoPlayerViewModel(get(), get())
     }
 }

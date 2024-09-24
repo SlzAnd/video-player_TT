@@ -4,7 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.andrews.videoplayer.ui.screens.main.MainScreen
+import com.andrews.videoplayer.ui.screens.video_player.VideoPlayerScreen
 
 
 @Composable
@@ -19,8 +21,12 @@ fun NavGraph(
             MainScreen(navController = navController)
         }
 
-        composable<Screen.DetailsScreen> {
-
+        composable<Screen.VideoPlayerScreen> {
+            val index = it.toRoute<Screen.VideoPlayerScreen>().index
+            VideoPlayerScreen(
+                navController = navController,
+                initialIndex = index
+            )
         }
     }
 }

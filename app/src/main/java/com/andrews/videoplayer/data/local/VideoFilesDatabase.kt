@@ -2,7 +2,7 @@ package com.andrews.videoplayer.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.andrews.videoplayer.data.model.VideoFileDto
+import com.andrews.videoplayer.data.local.model.VideoFileDto
 
 
 @Database(

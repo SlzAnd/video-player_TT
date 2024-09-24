@@ -1,4 +1,4 @@
-package com.andrews.videoplayer.data.model
+package com.andrews.videoplayer.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

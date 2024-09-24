@@ -1,7 +1,7 @@
 package com.andrews.videoplayer.data.mappers
 
-import com.andrews.videoplayer.data.model.VideoFileDto
-import com.andrews.videoplayer.data.model.Video
+import com.andrews.videoplayer.data.local.model.VideoFileDto
+import com.andrews.videoplayer.data.remote.model.Video
 import com.andrews.videoplayer.domain.model.VideoFile
 
 fun VideoFileDto.toVideoFile(): VideoFile {
@@ -19,6 +19,6 @@ fun Video.toVideoFileDto(): VideoFileDto {
         subtitle = this.subtitle,
         description = this.description,
         thumbUrl = "https://storage.googleapis.com/gtv-videos-bucket/sample/${this.thumb}",
-        videoSourceUrl = this.sources[0]
+        videoSourceUrl = this.sources[0].replace("http://", "https://")
     )
 }

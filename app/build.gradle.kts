@@ -92,7 +92,9 @@ dependencies {
     implementation(libs.converter.scalars)
 
     //ExoPlayer
-    implementation(libs.exoplayer)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.exoplayer.dash)
+    implementation(libs.androidx.media3.ui)
 
     // Coil
     implementation(libs.coil)

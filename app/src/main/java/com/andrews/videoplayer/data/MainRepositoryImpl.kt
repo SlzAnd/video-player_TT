@@ -4,7 +4,7 @@ import android.util.Log
 import com.andrews.videoplayer.data.local.VideoFilesDao
 import com.andrews.videoplayer.data.mappers.toVideoFile
 import com.andrews.videoplayer.data.mappers.toVideoFileDto
-import com.andrews.videoplayer.data.model.VideoResponse
+import com.andrews.videoplayer.data.remote.model.VideoResponse
 import com.andrews.videoplayer.data.remote.VideoFilesApi
 import com.andrews.videoplayer.domain.MainRepository
 import com.andrews.videoplayer.domain.model.VideoFile

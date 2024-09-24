@@ -8,5 +8,5 @@ sealed class Screen {
     data object MainScreen: Screen()
 
     @Serializable
-    data object DetailsScreen: Screen()
+    data class VideoPlayerScreen(val index: Int): Screen()
 }

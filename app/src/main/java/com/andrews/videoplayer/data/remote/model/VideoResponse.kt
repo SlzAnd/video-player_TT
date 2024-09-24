@@ -1,4 +1,4 @@
-package com.andrews.videoplayer.data.model
+package com.andrews.videoplayer.data.remote.model
 
 data class VideoResponse(
     val categories: List<Category>
