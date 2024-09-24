@@ -9,6 +9,7 @@ import com.andrews.videoplayer.data.remote.VideoFilesApi
 import com.andrews.videoplayer.domain.MainRepository
 import com.andrews.videoplayer.domain.model.VideoFile
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -27,29 +28,34 @@ class MainRepositoryImpl(
             list.map { dto-> dto.toVideoFile() }
         }
 
-    override suspend fun updateData() {
-        val response = api.getVideosRaw()
-        if (response.isSuccessful) {
-            response.body()?.let { rawResponse ->
-                val jsonString = rawResponse
-                    .substringAfter("var mediaJSON =")
-                    .trim()
-                    .removeSuffix(";")
+    override suspend fun updateData(): Result<Unit> {
+        try {
+            val response = api.getVideosRaw()
+            if (response.isSuccessful) {
+                response.body()?.let { rawResponse ->
+                    val jsonString = rawResponse
+                        .substringAfter("var mediaJSON =")
+                        .trim()
+                        .removeSuffix(";")
 
-                try {
-                    val videoResponse = gson.fromJson(jsonString, VideoResponse::class.java)
-                    val videoDtos = videoResponse.categories.flatMap { it.videos.map { video -> video.toVideoFileDto() } }
-                    dao.upsertAllVideoFiles(videoDtos)
-                } catch (e: Exception) {
-                    Log.e(TAG, "${e.message}")
+                    try {
+                        val videoResponse = gson.fromJson(jsonString, VideoResponse::class.java)
+                        val videoDtos = videoResponse.categories.flatMap { it.videos.map { video -> video.toVideoFileDto() } }
+                        dao.upsertAllVideoFiles(videoDtos)
+                        return Result.success(Unit)
+                    } catch (e: JsonSyntaxException) {
+                        Log.e(TAG, "${e.message}")
+                        return Result.failure(e)
+                    }
                 }
+            } else {
+                Log.e(TAG, response.code().toString())
+                return Result.failure(Exception("Getting the data from API failed: status code = ${response.code()}"))
             }
-        } else {
-            Log.e(TAG, response.code().toString())
+        } catch (e: Exception) {
+            Log.e(TAG, "${e.message}")
+            return Result.failure(e)
         }
-    }
-
-    override suspend fun getVideoById(id: Long): VideoFile {
-        TODO("Get video by id from local DB -> send this video to UI")
+        return Result.success(Unit)
     }
 }

@@ -27,12 +27,10 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.ui.PlayerView
-import androidx.navigation.NavHostController
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun VideoPlayerScreen(
-    navController: NavHostController,
     initialIndex: Int,
 ) {
     val viewModel = koinViewModel<VideoPlayerViewModel>()
@@ -40,8 +38,8 @@ fun VideoPlayerScreen(
 
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(true) {
-        viewModel.changeIndex(initialIndex)
+    LaunchedEffect(Unit) {
+        viewModel.setInitialIndex(initialIndex)
     }
 
     var lifecycle by remember {
@@ -89,9 +87,11 @@ fun VideoPlayerScreen(
                             it.onPause()
                             it.player?.pause()
                         }
+
                         Lifecycle.Event.ON_RESUME -> {
                             it.onResume()
                         }
+
                         else -> Unit
                     }
                 },

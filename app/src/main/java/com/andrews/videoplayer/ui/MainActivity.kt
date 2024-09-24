@@ -1,4 +1,4 @@
-package com.andrews.videoplayer
+package com.andrews.videoplayer.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

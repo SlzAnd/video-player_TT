@@ -32,7 +32,7 @@ val appModule = module {
         get<VideoFilesDatabase>().dao()
     }
 
-    single<Player> {
+    factory<Player> {
         ExoPlayer.Builder(androidContext()).build()
     }
 

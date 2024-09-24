@@ -14,7 +14,4 @@ interface VideoFilesDao {
 
     @Query("SELECT * FROM video_files")
     fun getAllVideoFiles(): Flow<List<VideoFileDto>>
-
-    @Query("SELECT * FROM video_files WHERE title = :title")
-    fun getVideoFileByTitle(title: String): VideoFileDto
 }

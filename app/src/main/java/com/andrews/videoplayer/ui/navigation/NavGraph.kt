@@ -24,7 +24,6 @@ fun NavGraph(
         composable<Screen.VideoPlayerScreen> {
             val index = it.toRoute<Screen.VideoPlayerScreen>().index
             VideoPlayerScreen(
-                navController = navController,
                 initialIndex = index
             )
         }
